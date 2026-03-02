@@ -1,0 +1,50 @@
+https://wokwi.com/projects/457401816328579073
+
+Wokwi ESP32  ──MQTT──▶  broker.hivemq.com  ◀──MQTT──  Flutter App
+    │                         │                          │
+    │ Sensor data yuboradi    │  Xabarlarni yo'naltiradi │ Real-time ko'rsatadi
+    │ Buyruqlarni qabul qiladi│                          │ Buyruqlar yuboradi
+    ▼                         ▼                          ▼
+  DHT22, LED, Servo      Cloud Broker            📱 Telefon
+
+
+                      ┌─────────────────────────┐
+                    │   LCD 1602 (I2C)        │
+                    │   ┌──────────────────┐  │
+                    │   │🌡 Harorat: 24.5°C│  │
+                    │   │💧 Namlik:  55%   │  │
+                    │   └──────────────────┘  │
+                    │   SDA=GPIO21 SCL=GPIO22 │
+                    └────────────┬────────────┘
+                                 │
+   🟢 Status    🟡 Room        │        🌡️ DHT22    🔔 Buzzer
+   LED(GPIO2)   LED(GPIO26)    │       (GPIO4)     (GPIO27)
+     │            │             │          │           │
+     ├──[220Ω]──┤            │          │           │
+     │            │             │          │           │
+  ┌──┴────────────┴─────────────┴──────────┴───────────┴──┐
+  │                                                        │
+  │                    ESP32 DevKit V1                      │
+  │                                                        │
+  │   3V3  GND  VIN                                       │
+  │                                                        │
+  └──┬───────────────────────────────┬────────────────────┘
+     │                               │              │
+     │                               │              │
+  🔴 Button                    🎛️ Potentiometer  ⚙️ Servo
+  (GPIO14)                     (GPIO34)          (GPIO13)
+  PIR Simulyasi                LDR Simulyasi     Eshik Qulfi
+
+
+  ┌──────────────────┬────────────┬──────────┬──────────────────────┐
+│   Komponent      │  Wokwi ID  │  ESP32   │     Vazifasi         │
+├──────────────────┼────────────┼──────────┼──────────────────────┤
+│ DHT22            │ dht1       │ GPIO 4   │ Harorat + Namlik     │
+│ LED (yashil)     │ led_status │ GPIO 2   │ Status indikator     │
+│ LED (sariq)      │ led_room   │ GPIO 26  │ Xona chiroqi (relay) │
+│ Pushbutton       │ btn_pir    │ GPIO 14  │ PIR sensor simulyasi │
+│ Potentiometer    │ pot_ldr    │ GPIO 34  │ LDR sensor simulyasi │
+│ Buzzer           │ bz1        │ GPIO 27  │ Ogohlantirish ovozi  │
+│ Servo Motor      │ servo_door │ GPIO 13  │ Eshik qulfi          │
+│ LCD 1602 (I2C)   │ lcd1       │ 21/22    │ Ma'lumot ko'rsatish  │
+└──────────────────┴────────────┴──────────┴──────────────────────┘
