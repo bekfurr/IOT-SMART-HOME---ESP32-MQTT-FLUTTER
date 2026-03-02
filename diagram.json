@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "author": "Smart Home IoT",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-esp32-devkit-v1",
+      "id": "esp",
+      "top": 0,
+      "left": 200,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht1",
+      "top": -160,
+      "left": 420,
+      "attrs": {
+        "temperature": "24.5",
+        "humidity": "55"
+      }
+    },
+    {
+      "type": "wokwi-lcd1602",
+      "id": "lcd1",
+      "top": -320,
+      "left": 100,
+      "attrs": {
+        "pins": "i2c"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_status",
+      "top": -140,
+      "left": 100,
+      "attrs": {
+        "color": "green",
+        "label": "Status"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_status",
+      "top": -70,
+      "left": 96,
+      "rotate": 90,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_room",
+      "top": -140,
+      "left": 30,
+      "attrs": {
+        "color": "yellow",
+        "label": "Room Light"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_room",
+      "top": -70,
+      "left": 26,
+      "rotate": 90,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn_pir",
+      "top": 340,
+      "left": 70,
+      "attrs": {
+        "color": "red",
+        "label": "PIR Motion"
+      }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pot_ldr",
+      "top": 350,
+      "left": 370,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "bz1",
+      "top": -160,
+      "left": 560,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-servo",
+      "id": "servo_door",
+      "top": 340,
+      "left": 550,
+      "attrs": {}
+    }
+  ],
+  "connections": [
+    [ "esp:D4", "dht1:SDA", "green", ["h0"] ],
+    [ "dht1:VCC", "esp:3V3", "red", ["v20", "h-180"] ],
+    [ "dht1:GND", "esp:GND.1", "black", ["v30", "h-170"] ],
+
+    [ "esp:D2", "r_status:1", "green", ["h-60"] ],
+    [ "r_status:2", "led_status:A", "green", ["v0"] ],
+    [ "led_status:C", "esp:GND.2", "black", ["v20", "h60"] ],
+
+    [ "esp:D26", "r_room:1", "orange", ["h-130"] ],
+    [ "r_room:2", "led_room:A", "orange", ["v0"] ],
+    [ "led_room:C", "esp:GND.2", "black", ["v30", "h120"] ],
+
+    [ "esp:D14", "btn_pir:1.l", "purple", ["v60"] ],
+    [ "btn_pir:2.l", "esp:3V3", "red", ["v40", "h100"] ],
+
+    [ "pot_ldr:VCC", "esp:3V3", "red", ["v-40", "h-120"] ],
+    [ "pot_ldr:GND", "esp:GND.3", "black", ["v-30"] ],
+    [ "pot_ldr:SIG", "esp:D34", "blue", ["v-60", "h-140"] ],
+
+    [ "esp:D27", "bz1:1", "orange", ["h0"] ],
+    [ "bz1:2", "esp:GND.1", "black", ["v20", "h-80"] ],
+
+    [ "esp:D13", "servo_door:PWM", "#FF6600", ["v80"] ],
+    [ "servo_door:V+", "esp:VIN", "red", ["h-100"] ],
+    [ "servo_door:GND", "esp:GND.3", "black", ["h-80"] ],
+
+    [ "lcd1:SDA", "esp:D21", "#9C27B0", ["v100", "h30"] ],
+    [ "lcd1:SCL", "esp:D22", "#03A9F4", ["v90", "h20"] ],
+    [ "lcd1:VCC", "esp:VIN", "red", ["v120"] ],
+    [ "lcd1:GND", "esp:GND.2", "black", ["v130"] ]
+  ]
+}
